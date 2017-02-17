@@ -2,7 +2,11 @@
 
 ---
 
-##1. 系統版面配置
+##1. 系統主要架構
+
+![system structure](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/system.png)
+
+##2. 系統版面配置
 
 頁面主要由三個區塊構成，分別是
 
@@ -15,7 +19,7 @@
 ![home page](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/page.png)
 
 
-##2. 系統功能介紹
+##3. 系統功能介紹
 
 ###(1)即時位置
 
@@ -60,7 +64,7 @@
 ![taxi track color](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/track_color.png)
 
 
-##3. 使用的外部資源
+##4. 使用的外部資源
 
 (1)開放街圖(OpenStreetMap)地圖資料：http://download.geofabrik.de/asia/taiwan.html
 
