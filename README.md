@@ -1,12 +1,8 @@
 #計程車管理系統
 
 ---
-##1. 開發緣由 
 
-近幾年優步(Uber)進入台灣，其利用了結合手機應用程式的方式，讓使用者可以方便快速的叫車和搭車，進而使得台灣的計程車車商面臨了前所未有的危機。若是車隊管理人能及時的得到目前各個駕駛的行駛資訊，並且將得到的行駛資訊加以分析，用以檢討個人在工作上的效率，或是加以探討如何讓計程車的使用率更加有效的利用，如此都能使得台灣本地的計程車獲得更多的優勢。
-
-
-##2. 版面配置
+##1. 系統版面配置
 
 頁面主要由三個區塊構成，分別是
 
@@ -19,7 +15,7 @@
 ![home page](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/page.png)
 
 
-##3. 功能介紹
+##2. 系統功能介紹
 
 ###(1)即時位置
 
@@ -62,3 +58,10 @@
 ![button color](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/button_color.png)
 
 ![taxi track color](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/track_color.png)
+
+
+##3. 使用的外部資源
+
+(1)開放街圖(OpenStreetMap)地圖資料：http://download.geofabrik.de/asia/taiwan.html
+
+(3)MapMatching version 0.7：https://github.com/graphhopper/map-matching/tree/0.7
