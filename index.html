@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Taxi Management System/title></title>
+
+    
+
+    <link rel="stylesheet" type="text/css" href="lib/leaflet/leaflet.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="./src/other/xml2json.min.js" charset="utf-8"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
+
+
+    <script src="Moment.js"></script>
+    <script src="charts2.0.js"></script>
+    <script src="https://raw.githack.com/leighquince/Chart.js/master/Chart.js"></script>
+
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- JQuery DatePicker -->
+    <link href="lib/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+
+    <script type="text/javascript" charset="UTF-8" src="js/global_variable.js" ></script>   
+    <script type="text/javascript" charset="UTF-8" src="js/create_button.js" ></script>   
+    <script type="text/javascript" charset="UTF-8" src="js/taxi_track.js" ></script>  
+    <script type="text/javascript" charset="UTF-8" src="js/taxi_position.js" ></script>
+    <script type="text/javascript" charset="UTF-8" src="js/set_length_chart_graph.js" ></script>    
+    <script type="text/javascript" charset="UTF-8" src="js/set_time_chart_graph.js" ></script>    
+    <script type="text/javascript" charset="UTF-8" src="js/find_single_taxi.js" ></script>    
+    
+    
+
+    <style>
+        body, html    {
+
+            background-repeat: repeat-x;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            width:100vw;
+            height:100vh;
+            min-width:1024px;
+            min-height:768px;
+            margin:0 auto;
+            padding: 0;
+        }
+        #map { 
+            width: 60%;
+            height: 84%;
+            left:39%;
+            top: 4%;
+            position: absolute;
+        }
+    	#week-bar {
+    	    width:100%;
+            height:100%;
+            float:left;
+            position: relative;
+    	}
+    	#month-bar {
+    	    width:100%;
+            height:100%;
+            float:left;
+            position: relative;
+    	}
+        #three-month-bar {
+            width:100%;
+            height:100%;
+            float:left;
+            position: relative;
+        }
+        #datePicker{
+            margin:7%;
+            float:left;
+            visibility: hidden;
+            position:absolute;
+        }
+        #myProgress {
+          position: relative;
+          width: 100%;
+          height: 20px;
+          background-color: #ddd;
+        }
+        #myBar {
+          position: absolute;
+          width: 10%;
+          height: 100%;
+        }
+
+    </style>
+</head>
+
+<body style="background-color:#444444;">
+    <div id="screen" style="width:100%; height:100vh; position:relative;">
+
+        <div id="myProgress" style="display: none">
+            <div id="myBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%</div>
+        </div>
+
+        <!-- Button -->
+        <div style="float:left; margin-left:1%; height:97%; width:10%; top:4%; position: absolute; background-color:#e8eded; border-radius:15px;">
+            <div style="height:100%; width:94%; margin-left:3%">
+                <h1 style="text-align:center;  font-weight:bold;">車號</h1> 
+                <button type="button" onclick="time_select_show_up()" style="border-radius: 15px;
+                    box-shadow: 0 5px #999; color:white; font-size:24px; font-weight:bold; text-align:center; width:100%; height:7%; background:#73AD21;">車號排序</button>
+                <div id="content" style="margin-top:8%; background-color:#CCEEFF; height:75%;width:100%; overflow:scroll; overflow-x:hidden;">
+                </div>
+            </div>
+            
+        </div>
+        
+
+
+        <!-- information -->
+        <div style="left:12%; height:97%; width:26%; top:4%; position: absolute; background-color:#e8eded; border-radius:15px;">
+            <div style="height:100%; width:94%; margin-left:3%;">
+
+                <h1 style="text-align:center;  font-weight:bold;">行駛資訊</h1> 
+                <div style="width:100%; height:85%; overflow:scroll;">
+                    <button id="Length" onclick="Driver_length()" style="height:30px; width:20%; font-size:120%; margin-left:2%; font-weight:bold;">距離</button>
+                    <button id="Time" onclick="Driver_time()" style="height:30px; width:20%; font-size:120%; margin-left:4%; font-weight:bold;">時間</button>
+                    <button id="OBD" style="height:30px; width:20%; font-size:120%; margin-left:4%; font-weight:bold;">油耗</button>
+                    <button id="Event" style="height:30px; width:20%; font-size:120%; margin-left:4%; font-weight:bold;">事件</button>
+
+            	    <p id="today_total" style="font-size:120%; text-align:center; font-family:verdana;">今日行駛里程:--km <br>車隊平均行駛里程:--km</p>
+
+                    <div style="height:25%;width:100%;">   
+                        <p id="week_rank" style="width:40%; border-top:1px #778899 solid; font-family:verdana; float:left;">排名:-/-</p>
+                        <form action="detail.html?" method="get">
+                            <input id="setCarno_week" name="carno" style="display:none"></input>
+                            <input id="boundryDate_week" name="date" style="display:none"></input>
+                            <button id="detail" onclick="set_detail(8)" type="submit" formtarget="_blank" style="width:15%; height:20%; margin-left:10%; float:left;">detail</button>
+                        </form>
+
+                	    <canvas id="week-bar" onmousedown="myShowUpFunction(0)"></canvas>    
+                    </div>
+
+                    <div style="height:25%;width:100%;">                    
+                        <p id="month_rank" style="width:40%; border-top:1px #778899 solid; font-family:verdana; float:left;">排名:-/-</p>
+                        <form action="detail.html?" method="get">
+                            <input id="setCarno_month" name="carno" style="display:none"></input>
+                            <input id="boundryDate_month" name="date" style="display:none"></input>
+                            <button id="detail" onclick="set_detail(30)" type="submit" formtarget="_blank" style="width:15%; height:20%; margin-left:10%; float:left;">detail</button>
+                        </form> 
+
+                	    <canvas id="month-bar" onmousedown="myShowUpFunction(1)"></canvas>
+                    </div>
+
+                    <div style="height:25%;width:100%;">
+                        <p id="three_month_rank" style="width:40%; border-top:1px #778899 solid; font-family:verdana; float:left;">排名:-/-</p>
+                        <form action="detail.html?" method="get">
+                            <input id="setCarno_three_month" name="carno" style="display:none"></input>
+                            <input id="boundryDate_three_month" name="date" style="display:none"></input>
+                            <button id="detail" onclick="set_detail(90)" type="submit" formtarget="_blank" style="width:15%; height:20%; margin-left:10%; float:left;">detail</button>
+                        </form>
+
+                        <canvas id="three-month-bar" onmousedown="myShowUpFunction(2)"></canvas>
+                    </div>
+                </div>
+            </div>
+	   </div>
+        
+
+        <div id="map"></div>
+
+        <div style="margin-left:39%; top:90%; height:8%; position:absolute; width:12%">
+            <input id = "datepicker" type="button" value="軌跡日期選擇" style="font-weight:bold; font-size:20px; height:100%; width:100%;"/>
+            <!--<button id = "test" onclick="datePickerShowUp()" style="font-weight:bold; font-size:20px; height:100%; width:100%;">軌跡查詢日期選擇</button>-->
+        </div>
+
+        <div style="margin-left:52%; top:90%; width:5%; height:8%; position:absolute;"><button id="00-06" onclick="changeValue(1)" style="width:100%; height:100%; background:#d81f2a; color:black;">00-06時</button></div>
+        <div style="margin-left:58%; top:90%; width:5%; height:8%; position:absolute;"><button id="06-12" onclick="changeValue(2)" style="width:100%; height:100%; background:#ff9900; color:black;">06-12時</button></div>
+        <div style="margin-left:64%; top:90%; width:5%; height:8%; position:absolute;"><button id="12-18" onclick="changeValue(3)" style="width:100%; height:100%; background:#2F4F4F; color:black;">12-18時</button></div>
+        <div style="margin-left:70%; top:90%; width:5%; height:8%; position:absolute;"><button id="18-24" onclick="changeValue(4)" style="width:100%; height:100%; background:#9ea900;  color:black;">18-24時</button></div>
+        <div style="margin-left:76%; top:90%; width:5%; height:8%; position:absolute;"><button id = "All" onclick="resetColor()" style="width:100%; height:100%;">All</button></div>
+
+
+        <div id="time_select" style="border:5px solid;background-image: url('img/paper.gif'); border-radius:25px; margin-top:10%; width:300px; height:300px; position:absolute; visibility:hidden;">
+
+            <button id="close_button" type="button" onclick="myOutFunction('time_select')" style="background-size:100%; width:30px; height:30px; margin-left:80%; margin-top:5%; background-image:url('img/close_button.png'); position:absolute;"></button>
+            
+            <p style="margin-left:2%; margin-top:10%; font-size:160%; font-weight:bold;">排序標準</p>
+            <div style="font-size:130%; font-weight:bold; margin-left:3%;">
+                字元<input type="checkbox" id="charBox" onclick="checkValue(this.id)" checked="true" style="margin-left:1%; width:20px; height:20px;">
+                行駛距離<input type="checkbox" id="lenBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
+                行駛時間<input type="checkbox" id="timeBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
+            </div>
+
+            <p style="margin-left:2%; margin-top:10%; font-size:160%; font-weight:bold;">時間範圍</p>
+            <div style="font-size:130%px; font-weight:bold; margin-left:3%;">
+                一天<input type="checkbox" id="dayBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
+                一周<input type="checkbox" id="weekBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
+                一個月<input type="checkbox" id="monthBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
+                三個月<input type="checkbox" id="threeMonthBox" onclick="checkValue(this.id)" checked="true" style="margin-left:2px; margin-right:5px; width:20px; height:20px;">
+            </div>
+
+            <button id="check" onclick="change_order()" style="margin-top:10%; margin-left:10%; height:10%; width:35%;">確定</button>
+            <button id="cancel" onclick="myOutFunction('time_select')" style="margin-top:10%; margin-left:10%; height:10%; width:35%;">取消</button>
+        </div>
+
+        <div id="datePickerBackground" style="border: 5px solid;background-image: url('img/paper.gif'); border-radius:25px; top:55%; margin-left:39%; width:12%; height:250px; position:absolute; visibility:hidden;">
+            <div id="datePicker" ></div>
+        </div>
+
+
+        <div id="big-week" onmouseout="myOutFunction(this.id)" style="border: 5px solid; background-image: url('img/paper.gif'); border-radius:25px; margin-top:10%; margin-left:6%; width: 50%; height:30%; position:absolute; visibility:hidden;">
+            <canvas id="big-week-bar" style="width:100%; height:100%;"></canvas>
+        </div>
+
+        <div id="big-month" onmouseout="myOutFunction(this.id)" style="border: 5px solid;background-image: url('img/paper.gif'); border-radius:25px; margin-top:20%; margin-left:6%; width: 60%; height:30%; position:absolute; visibility:hidden;">
+            <canvas id="big-month-bar" style="width:100%; height:100%;"></canvas>
+        </div>
+
+        <div id="big-three-month" onmouseout="myOutFunction(this.id)" style="border: 5px solid;background-image: url('img/paper.gif'); border-radius:25px; margin-top:33%; width:100%; height:30%; position:absolute; visibility:hidden;">
+            <canvas id="big-three-month-bar" style="width:100%; height:100%;"></canvas>
+        </div>
+    </div>
+
+    <script> 
+
+    window.onload = start;
+
+    function start() {  
+        Present_Pos();
+
+    }
+
+    function Driver_time()  {
+        document.getElementById("Length").style.background = "";
+        document.getElementById("Time").style.background = "gray";
+        query_day_time();
+        set_time_chart_bar();
+        cal_rank("taxi_day_time", "Hour");
+    }
+
+    function Driver_length()  {
+        document.getElementById("Time").style.background = "";
+        document.getElementById("Length").style.background = "gray";
+        query_day_len();
+        set_length_chart_bar();
+        cal_rank("taxi_day_length", "kilometer");
+    }
+
+    function myShowUpFunction(div_num)  {
+        var div_name;
+        if (div_num == 0)
+            div_name = "big-week";
+        else if (div_num == 1)
+            div_name = "big-month";
+        else
+            div_name = "big-three-month";
+
+        document.getElementById(div_name).style.visibility = "visible";
+    }
+
+    function myOutFunction(div_name)  {
+        document.getElementById(div_name).style.visibility = "hidden";
+
+        if (div_name == "time_select")
+            reset_checkBox();
+    }
+
+    function set_detail(minus_time)   {
+        var testDate = new Date();
+        var set;
+        var date;
+        if (minus_time == 8)    {
+            set = document.getElementById("setCarno_week");
+            date = document.getElementById("boundryDate_week");
+        }
+        else if (minus_time == 30)  {
+            set = document.getElementById("setCarno_month");
+            date = document.getElementById("boundryDate_month");
+        }
+        else    {
+            set = document.getElementById("setCarno_three_month");
+            date = document.getElementById("boundryDate_three_month");
+        }
+        set.value = focus_carno;
+        testDate.setDate(testDate.getDate()-minus_time);
+        date.value = testDate.getFullYear() + "-" + (testDate.getMonth() + 1) + "-" + testDate.getDate();
+    }
+
+    function cal_rank(table, element)  {
+        var testDate = new Date();
+
+        testDate.setDate(testDate.getDate()-7);
+        var week = testDate.getFullYear() + "-" + (testDate.getMonth() + 1) + "-" + testDate.getDate() + " 00:00:00";
+
+        testDate.setDate(testDate.getDate()-23);
+        var month = testDate.getFullYear() + "-" + (testDate.getMonth() + 1) + "-" + testDate.getDate() + " 00:00:00";
+
+        testDate.setDate(testDate.getDate()-60);
+        var three_month = testDate.getFullYear() + "-" + (testDate.getMonth() + 1) + "-" + testDate.getDate() + " 00:00:00";
+
+        $.ajax({
+            type: 'GET',
+            url:"php/cal_rank.php",
+            dataType: 'json',
+            data: {
+                find_carno: focus_carno,
+                pre_week: week,   
+                pre_month: month,
+                pre_three_month: three_month,
+                table_name: table,
+                type: element
+            },
+            success: function (data){
+                if (data[0][0] == 0) 
+                    document.getElementById("week_rank").innerHTML = "排名: 未活動";
+                else
+                    document.getElementById("week_rank").innerHTML = "排名: " + data[0][0] + "/" + data[0][1];
+
+                if (data[1][0] == 0) 
+                    document.getElementById("month_rank").innerHTML = "排名: 未活動";
+                else
+                    document.getElementById("month_rank").innerHTML = "排名: " + data[1][0] + "/" + data[1][1];
+
+                if (data[2][0] == 0)
+                    document.getElementById("three_month_rank").innerHTML = "排名: 未活動";
+                else
+                    document.getElementById("three_month_rank").innerHTML = "排名: " + data[2][0] + "/" + data[2][1];
+
+            },
+            error: function(){
+                window.alert("cal_rank() Failed~!!");
+            }
+        });
+    }
+
+
+    var n = 0;
+    var bar_counter = 50;
+    function progress_bar_count()   {
+        console.log(bar_counter);
+        if (n != -1)    {
+            var elem = document.getElementById("myBar");
+            bar_counter = (bar_counter + 10);
+            elem.style.width = bar_counter + '%';
+            elem.innerHTML = bar_counter + '%';
+            n = n + 1;
+            if (n < 5 && n != -1)
+                setTimeout(progress_bar_count, 1000);
+        }
+    }
+
+    //===================清空按鈕列表===================
+    $(document).ready(function(){
+        $("#check").click(function(){
+            $("#content").empty();
+        });
+    });
+    //===================清空按鈕列表結束===================
+
+
+    //==================萬年曆===================
+    $("#datepicker").datepicker({
+        showButtonPanel: true,
+        closeText: "關閉此視窗",
+        dateFormat: 'yy-mm-dd',
+        onSelect: function (date) {
+            document.getElementById("datepicker").value = "軌跡查詢日期選擇";
+            FindTaxiTrack(date);
+        }
+    });
+    //==================萬年曆結束===================
+
+    var map = new L.Map('map', {
+        center: [24.9696,121.2683],
+        zoom: 14
+    });   
+
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18
+    }).addTo(map);
+
+        //canvases
+    var weekLineBar = document.getElementById("week-bar").getContext("2d");
+    var monthLineBar = document.getElementById("month-bar").getContext("2d");
+    var threeMonthLineBar = document.getElementById("three-month-bar").getContext("2d");
+    //放大
+    var biggerWeekLineBar = document.getElementById("big-week-bar").getContext("2d");
+    var biggerMonthLineBar = document.getElementById("big-month-bar").getContext("2d");
+    var biggerthrTeMonthLineBar = document.getElementById("big-three-month-bar").getContext("2d");
+
+    //charts
+    var myWeekLineBarChart = new Chart(weekLineBar).Overlay(week_data, {scaleFontSize : 15});
+    var myMonthLineBarChart = new Chart(monthLineBar).Overlay(month_data, {scaleFontSize : 15});
+    var myThreeMonthLineBarChart = new Chart(threeMonthLineBar).Overlay(three_month_data, {scaleFontSize : 15});
+    //放大
+    var myBiggerWeekLineBarChart = new Chart(biggerWeekLineBar).Overlay(big_week_data, {scaleFontSize : 15});
+    var myBiggerMonthLineBarChart = new Chart(biggerMonthLineBar).Overlay(big_month_data, {scaleFontSize : 15});
+    var myBiggerThreeMonthLineBarChart = new Chart(biggerthrTeMonthLineBar).Overlay(big_three_month_data, {scaleFontSize : 15});
+        
+    </script>
+</body>
+
+</html>

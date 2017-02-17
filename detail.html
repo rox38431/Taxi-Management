@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="./src/other/xml2json.min.js" charset="utf-8"></script>
+
+      <style>
+      table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+      }
+
+      td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+      }
+
+      tr:nth-child(even) {
+          background-color: #dddddd;
+      }
+      </style>
+</head>
+
+<body>
+
+<table id="myTable">
+  <tr>
+    <th width="13%">Date</th>
+    <th>Carno</th>
+    <th>Driving Time</th>
+    <th>Driving Length</th>
+  </tr>
+</table>
+<br>
+
+<script>
+  var carno = location.search.split("&")[0].split('carno=')[1];
+
+  window.onload = New_Column;
+
+
+  function New_Column() {
+    var table = document.getElementById("myTable");
+
+
+    var d = new Date();
+    var currentdate = d.getFullYear() + "-" + (d.getMonth() + 1).toString() + "-" + (d.getDate()+1).toString() + " 00:00:00";
+    d.setDate(d.getDate() - 90);
+    var pasttime = location.search.split("&")[1].split('date=')[1];
+
+    $.ajax({
+      type: 'GET',
+      url:"php/detail_info.php",
+      dataType: 'json',
+      data: {
+        pre_time: pasttime,   
+        now_time: currentdate,
+        find_car: carno
+      },
+      success: function (data){
+        for (i = 0; i < data.length; i++) {
+          var row = table.insertRow(i + 1);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          var cell4 = row.insertCell(3);
+          cell1.innerHTML = data[i][0].substring(0, 10);
+          cell2.innerHTML = data[i][1];
+          cell3.innerHTML = data[i][2].substring(0, 5) + " hour";
+          cell4.innerHTML = data[i][3].substring(0, 6) + " km";
+        }
+      },
+      error: function(){
+        window.alert("New_Column Failed~!!");
+      }
+    });
+  }
+    
+
+</script>
+
+</body>
+</html>
+
