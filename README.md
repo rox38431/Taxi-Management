@@ -64,4 +64,4 @@
 
 (1)開放街圖(OpenStreetMap)地圖資料：http://download.geofabrik.de/asia/taiwan.html
 
-(3)MapMatching version 0.7：https://github.com/graphhopper/map-matching/tree/0.7
+(2)MapMatching version 0.7：https://github.com/graphhopper/map-matching/tree/0.7
