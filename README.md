@@ -41,9 +41,9 @@
 
 提供行駛距離與行駛時間的分析，並且將個人與車隊比較
 
-圖表中紅色表示為整體車隊，綠色則為個人
+圖表中紅色表示為整體車隊，綠色則為個人，下為行駛里程與行駛里程的圖表
 
-![info]()
+![info](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/info.png)
 
 除了圖表之外，為了可顯示更詳細資訊，因此另外以表格或是放大圖表的方式呈現
 
@@ -57,7 +57,7 @@
 
 ![taxi track](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/taxi_track.png)
 
-下方的四個按鈕可幫助凸顯某一時段的軌跡
+下方的五個按鈕可幫助凸顯某一時段的軌跡
 
 ![button color](https://github.com/rox38431/Taxi_Management/blob/master/Demo_IMAGE/button_color.png)
 
