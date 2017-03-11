@@ -5,7 +5,7 @@
 
     <title>Taxi Management System/title></title>
 
-    
+
 
     <link rel="stylesheet" type="text/css" href="lib/leaflet/leaflet.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -17,7 +17,6 @@
     <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
 
 
-    <script src="Moment.js"></script>
     <script src="charts2.0.js"></script>
     <script src="https://raw.githack.com/leighquince/Chart.js/master/Chart.js"></script>
 
@@ -38,195 +37,162 @@
     <script type="text/javascript" charset="UTF-8" src="js/taxi_position.js" ></script>
     <script type="text/javascript" charset="UTF-8" src="js/set_length_chart_graph.js" ></script>    
     <script type="text/javascript" charset="UTF-8" src="js/set_time_chart_graph.js" ></script>    
-    <script type="text/javascript" charset="UTF-8" src="js/find_single_taxi.js" ></script>    
+    <script type="text/javascript" charset="UTF-8" src="js/find_single_taxi.js" ></script>   
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css"> 
+    <link rel="stylesheet" type="text/css" href="css/Information.css"> 
+    <link rel="stylesheet" type="text/css" href="css/Map.css">
+    <link rel="stylesheet" type="text/css" href="css/ButtonList.css">
     
-    
-
-    <style>
-        body, html    {
-
-            background-repeat: repeat-x;
-            background-attachment: fixed;
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            width:100vw;
-            height:100vh;
-            min-width:1024px;
-            min-height:768px;
-            margin:0 auto;
-            padding: 0;
-        }
-        #map { 
-            width: 60%;
-            height: 84%;
-            left:39%;
-            top: 4%;
-            position: absolute;
-        }
-    	#week-bar {
-    	    width:100%;
-            height:100%;
-            float:left;
-            position: relative;
-    	}
-    	#month-bar {
-    	    width:100%;
-            height:100%;
-            float:left;
-            position: relative;
-    	}
-        #three-month-bar {
-            width:100%;
-            height:100%;
-            float:left;
-            position: relative;
-        }
-        #datePicker{
-            margin:7%;
-            float:left;
-            visibility: hidden;
-            position:absolute;
-        }
-        #myProgress {
-          position: relative;
-          width: 100%;
-          height: 20px;
-          background-color: #ddd;
-        }
-        #myBar {
-          position: absolute;
-          width: 10%;
-          height: 100%;
-        }
-
-    </style>
 </head>
 
-<body style="background-color:#444444;">
-    <div id="screen" style="width:100%; height:100vh; position:relative;">
+<body>
+    <div class="screen">
 
-        <div id="myProgress" style="display: none">
+        <div id="myProgress" class="myProgress">
             <div id="myBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%</div>
         </div>
 
         <!-- Button -->
-        <div style="float:left; margin-left:1%; height:97%; width:10%; top:4%; position: absolute; background-color:#e8eded; border-radius:15px;">
-            <div style="height:100%; width:94%; margin-left:3%">
-                <h1 style="text-align:center;  font-weight:bold;">車號</h1> 
-                <button type="button" onclick="time_select_show_up()" style="border-radius: 15px;
-                    box-shadow: 0 5px #999; color:white; font-size:24px; font-weight:bold; text-align:center; width:100%; height:7%; background:#73AD21;">車號排序</button>
-                <div id="content" style="margin-top:8%; background-color:#CCEEFF; height:75%;width:100%; overflow:scroll; overflow-x:hidden;">
-                </div>
+        <div class="ButtonList">
+            <div class="ButtonListContainer">
+                <h1 class="ButtonListHeader">車號</h1> 
+                <button class="ButtonOrder" type="button" onclick="time_select_show_up()" style="">車號排序</button>
+                <div id="content" class="ButtonContent"></div>
             </div>
-            
         </div>
-        
+        <!--Button END-->
 
 
         <!-- information -->
-        <div style="left:12%; height:97%; width:26%; top:4%; position: absolute; background-color:#e8eded; border-radius:15px;">
-            <div style="height:100%; width:94%; margin-left:3%;">
+        <div class="Information">
+            <div class="InformationContainer">
 
-                <h1 style="text-align:center;  font-weight:bold;">行駛資訊</h1> 
-                <div style="width:100%; height:85%; overflow:scroll;">
-                    <button id="Length" onclick="Driver_length()" style="height:30px; width:20%; font-size:120%; margin-left:2%; font-weight:bold;">距離</button>
-                    <button id="Time" onclick="Driver_time()" style="height:30px; width:20%; font-size:120%; margin-left:4%; font-weight:bold;">時間</button>
-                    <button id="OBD" style="height:30px; width:20%; font-size:120%; margin-left:4%; font-weight:bold;">油耗</button>
-                    <button id="Event" style="height:30px; width:20%; font-size:120%; margin-left:4%; font-weight:bold;">事件</button>
+                <h1 class="InformationHeader">行駛資訊</h1> 
+                <div class= "InformationContent">
+                    <button id="Length" class="LengthButton" onclick="Driver_length()">距離</button>
+                    <button id="Time" class="TimeButton" onclick="Driver_time()">時間</button>
+                    <button id="OBD" class="OBDButton">油耗</button>
+                    <button id="Event" class="EventButton">事件</button>
 
-            	    <p id="today_total" style="font-size:120%; text-align:center; font-family:verdana;">今日行駛里程:--km <br>車隊平均行駛里程:--km</p>
+            	    <p id="today_total" class="today_total">今日行駛里程:--km <br>車隊平均行駛里程:--km</p>
 
-                    <div style="height:25%;width:100%;">   
-                        <p id="week_rank" style="width:40%; border-top:1px #778899 solid; font-family:verdana; float:left;">排名:-/-</p>
+                    <div class="WeekInfo">   
+                        <p id="week_rank" class="week_rank">排名:-/-</p>
                         <form action="detail.html?" method="get">
                             <input id="setCarno_week" name="carno" style="display:none"></input>
                             <input id="boundryDate_week" name="date" style="display:none"></input>
-                            <button id="detail" onclick="set_detail(8)" type="submit" formtarget="_blank" style="width:15%; height:20%; margin-left:10%; float:left;">detail</button>
+                            <button id="detail" class="detail" onclick="set_detail(8)" type="submit" formtarget="_blank">detail</button>
                         </form>
 
                 	    <canvas id="week-bar" onmousedown="myShowUpFunction(0)"></canvas>    
                     </div>
 
-                    <div style="height:25%;width:100%;">                    
-                        <p id="month_rank" style="width:40%; border-top:1px #778899 solid; font-family:verdana; float:left;">排名:-/-</p>
+                    <div class="MonthInfo">                    
+                        <p id="month_rank" class="month_rank">排名:-/-</p>
                         <form action="detail.html?" method="get">
                             <input id="setCarno_month" name="carno" style="display:none"></input>
                             <input id="boundryDate_month" name="date" style="display:none"></input>
-                            <button id="detail" onclick="set_detail(30)" type="submit" formtarget="_blank" style="width:15%; height:20%; margin-left:10%; float:left;">detail</button>
+                            <button id="detail" class="detail" onclick="set_detail(30)" type="submit" formtarget="_blank">detail</button>
                         </form> 
 
                 	    <canvas id="month-bar" onmousedown="myShowUpFunction(1)"></canvas>
                     </div>
 
-                    <div style="height:25%;width:100%;">
-                        <p id="three_month_rank" style="width:40%; border-top:1px #778899 solid; font-family:verdana; float:left;">排名:-/-</p>
+                    <div class="ThreeMonthInfo">
+                        <p id="three_month_rank" class="three_month_rank">排名:-/-</p>
                         <form action="detail.html?" method="get">
                             <input id="setCarno_three_month" name="carno" style="display:none"></input>
                             <input id="boundryDate_three_month" name="date" style="display:none"></input>
-                            <button id="detail" onclick="set_detail(90)" type="submit" formtarget="_blank" style="width:15%; height:20%; margin-left:10%; float:left;">detail</button>
+                            <button id="detail" class="detail" onclick="set_detail(90)" type="submit" formtarget="_blank">detail</button>
                         </form>
 
                         <canvas id="three-month-bar" onmousedown="myShowUpFunction(2)"></canvas>
                     </div>
                 </div>
             </div>
-	   </div>
-        
+        </div>
+        <!-- information END -->
 
+
+        <!--Map-->
         <div id="map"></div>
+        <!--Map End-->
 
-        <div style="margin-left:39%; top:90%; height:8%; position:absolute; width:12%">
-            <input id = "datepicker" type="button" value="軌跡日期選擇" style="font-weight:bold; font-size:20px; height:100%; width:100%;"/>
+
+        <!--萬年曆-->
+        <div class="datepickerContainer">
+            <input id="datepicker" class="datepicker" type="button" value="軌跡日期選擇"/>
             <!--<button id = "test" onclick="datePickerShowUp()" style="font-weight:bold; font-size:20px; height:100%; width:100%;">軌跡查詢日期選擇</button>-->
         </div>
-
-        <div style="margin-left:52%; top:90%; width:5%; height:8%; position:absolute;"><button id="00-06" onclick="changeValue(1)" style="width:100%; height:100%; background:#d81f2a; color:black;">00-06時</button></div>
-        <div style="margin-left:58%; top:90%; width:5%; height:8%; position:absolute;"><button id="06-12" onclick="changeValue(2)" style="width:100%; height:100%; background:#ff9900; color:black;">06-12時</button></div>
-        <div style="margin-left:64%; top:90%; width:5%; height:8%; position:absolute;"><button id="12-18" onclick="changeValue(3)" style="width:100%; height:100%; background:#2F4F4F; color:black;">12-18時</button></div>
-        <div style="margin-left:70%; top:90%; width:5%; height:8%; position:absolute;"><button id="18-24" onclick="changeValue(4)" style="width:100%; height:100%; background:#9ea900;  color:black;">18-24時</button></div>
-        <div style="margin-left:76%; top:90%; width:5%; height:8%; position:absolute;"><button id = "All" onclick="resetColor()" style="width:100%; height:100%;">All</button></div>
+        <!--萬年曆 END-->
 
 
-        <div id="time_select" style="border:5px solid;background-image: url('img/paper.gif'); border-radius:25px; margin-top:10%; width:300px; height:300px; position:absolute; visibility:hidden;">
-
-            <button id="close_button" type="button" onclick="myOutFunction('time_select')" style="background-size:100%; width:30px; height:30px; margin-left:80%; margin-top:5%; background-image:url('img/close_button.png'); position:absolute;"></button>
-            
-            <p style="margin-left:2%; margin-top:10%; font-size:160%; font-weight:bold;">排序標準</p>
-            <div style="font-size:130%; font-weight:bold; margin-left:3%;">
-                字元<input type="checkbox" id="charBox" onclick="checkValue(this.id)" checked="true" style="margin-left:1%; width:20px; height:20px;">
-                行駛距離<input type="checkbox" id="lenBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
-                行駛時間<input type="checkbox" id="timeBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
-            </div>
-
-            <p style="margin-left:2%; margin-top:10%; font-size:160%; font-weight:bold;">時間範圍</p>
-            <div style="font-size:130%px; font-weight:bold; margin-left:3%;">
-                一天<input type="checkbox" id="dayBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
-                一周<input type="checkbox" id="weekBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
-                一個月<input type="checkbox" id="monthBox" onclick="checkValue(this.id)" style="margin-left:1%; width:20px; height:20px;">
-                三個月<input type="checkbox" id="threeMonthBox" onclick="checkValue(this.id)" checked="true" style="margin-left:2px; margin-right:5px; width:20px; height:20px;">
-            </div>
-
-            <button id="check" onclick="change_order()" style="margin-top:10%; margin-left:10%; height:10%; width:35%;">確定</button>
-            <button id="cancel" onclick="myOutFunction('time_select')" style="margin-top:10%; margin-left:10%; height:10%; width:35%;">取消</button>
-        </div>
-
-        <div id="datePickerBackground" style="border: 5px solid;background-image: url('img/paper.gif'); border-radius:25px; top:55%; margin-left:39%; width:12%; height:250px; position:absolute; visibility:hidden;">
+        <!--萬年曆背景-->
+        <div id="datePickerBackground" class="datePickerBackground">
             <div id="datePicker" ></div>
         </div>
+        <!--萬年曆背景 END-->
 
 
-        <div id="big-week" onmouseout="myOutFunction(this.id)" style="border: 5px solid; background-image: url('img/paper.gif'); border-radius:25px; margin-top:10%; margin-left:6%; width: 50%; height:30%; position:absolute; visibility:hidden;">
-            <canvas id="big-week-bar" style="width:100%; height:100%;"></canvas>
+        <!--軌跡時間選擇-->
+        <div class="timeOne">
+            <button class="timeOneButton" id="00-06" onclick="changeValue(1)">00-06時</button>
+        </div>
+        <div class="timeTwo">
+            <button class="timeTwoButton" id="06-12" onclick="changeValue(2)">06-12時</button>
+        </div>
+        <div class="timeThree" style="">
+            <button class="timeThreeButton" id="12-18" onclick="changeValue(3)">12-18時</button>
+        </div>
+        <div class="timeFour" style="">
+            <button class="timeFourButton" id="18-24" onclick="changeValue(4)">18-24時</button>
+        </div>
+        <div class="timeAll" style="">
+            <button class="timeAllButton" id="All" onclick="resetColor()">All</button>
+        </div>
+        <!--軌跡時間選擇 END-->
+
+
+        <!--Button List 排序客製-->
+        <div id="time_select" class="time_select">
+
+            <button id="close_button" class="close_button" type="button" onclick="myOutFunction('time_select')"></button>
+            
+            <p class="sortStandardParagraph">排序標準</p>
+            <div class="sortStandardContainer">
+                字元<input id="charBox" class="charBox" type="checkbox" onclick="checkValue(this.id)" checked="true">
+                行駛距離<input id="lenBox" class="lenBox" type="checkbox" onclick="checkValue(this.id)">
+                行駛時間<input id="timeBox" class="timeBox" type="checkbox" onclick="checkValue(this.id)">
+            </div>
+
+            <p class="sortTimeRangeParagraph">時間範圍</p>
+            <div class="sortTimeRangeContainer">
+                一天<input id="dayBox" class="dayBox" type="checkbox" onclick="checkValue(this.id)">
+                一周<input id="weekBox" class="weekBox" type="checkbox" onclick="checkValue(this.id)">
+                一個月<input id="monthBox" class="monthBox" type="checkbox" onclick="checkValue(this.id)">
+                三個月<input id="threeMonthBox" class="threeMonthBox" type="checkbox" onclick="checkValue(this.id)" checked="true">
+            </div>
+
+            <button id="check" class="check" onclick="change_order()">確定</button>
+            <button id="cancel" class="cancel" onclick="myOutFunction('time_select')">取消</button>
+        </div>
+        <!--Button List 排序客製 END-->
+
+
+        <!--放大版柱狀圖-->
+        <div id="big-week" class="big_week" onmouseout="myOutFunction(this.id)">
+            <canvas id="big-week-bar" class="big_week_bar"></canvas>
         </div>
 
-        <div id="big-month" onmouseout="myOutFunction(this.id)" style="border: 5px solid;background-image: url('img/paper.gif'); border-radius:25px; margin-top:20%; margin-left:6%; width: 60%; height:30%; position:absolute; visibility:hidden;">
-            <canvas id="big-month-bar" style="width:100%; height:100%;"></canvas>
+        <div id="big-month" class="big_month" onmouseout="myOutFunction(this.id)">
+            <canvas id="big-month-bar" class="big_month_bar"></canvas>
         </div>
 
-        <div id="big-three-month" onmouseout="myOutFunction(this.id)" style="border: 5px solid;background-image: url('img/paper.gif'); border-radius:25px; margin-top:33%; width:100%; height:30%; position:absolute; visibility:hidden;">
-            <canvas id="big-three-month-bar" style="width:100%; height:100%;"></canvas>
+        <div id="big-three-month" class="big_three_month" onmouseout="myOutFunction(this.id)">
+            <canvas id="big-three-month-bar" class="big_three_month_bar"></canvas>
         </div>
+        <!--放大版柱狀圖 END-->
     </div>
 
     <script> 
@@ -336,7 +302,7 @@
 
             },
             error: function(){
-                window.alert("cal_rank() Failed~!!");
+                window.alert("Failed~!!");
             }
         });
     }

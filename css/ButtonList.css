@@ -1,0 +1,104 @@
+.time_select {
+	border:5px solid;
+	background-image: url('../img/paper.gif'); 
+	border-radius:25px; 
+	margin-top:10%; 
+	width:300px; 
+	height:300px; 
+	position:absolute; 
+	visibility:hidden;
+}
+
+.close_button {
+	background-size:100%; 
+	width:30px; 
+	height:30px; 
+	margin-left:80%; 
+	margin-top:5%; 
+	background-image:url('../img/close_button.png'); 
+	position:absolute;
+}
+
+.sortStandardParagraph {
+	margin-left:2%; 
+	margin-top:10%; 
+	font-size:160%; 
+	font-weight:bold;
+}
+
+.sortStandardContainer {
+	font-size:130%; 
+	font-weight:bold; 
+	margin-left:3%;
+}
+
+.charBox {
+	margin-left:1%; 
+	width:20px; 
+	height:20px;
+}
+
+.lenBox {
+	margin-left:1%; 
+	width:20px; 
+	height:20px;
+}
+
+.timeBox {
+	margin-left:1%; 
+	width:20px; 
+	height:20px;
+}
+
+.sortTimeRangeParagraph {
+	margin-left:2%;
+	 margin-top:10%; 
+	 font-size:160%; 
+	 font-weight:bold;
+}
+
+
+.sortTimeRangeContainer {
+	font-size:130%; 
+	font-weight:bold; 
+	margin-left:3%;
+}
+
+.dayBox {
+	margin-left:1%; 
+	width:20px; 
+	height:20px;
+}
+
+.weekBox {
+	margin-left:1%; 
+	width:20px; 
+	height:20px;
+}
+
+.monthBox {
+	margin-left:1%; 
+	width:20px; 
+	height:20px;
+}
+
+.threeMonthBox {
+	margin-left:2px; 
+	margin-right:5px; 
+	width:20px; 
+	height:20px;
+}
+
+.check {
+	margin-top:10%; 
+	margin-left:10%; 
+	height:10%; 
+	width:35%;
+}
+
+.cancel {
+	margin-top:10%; 
+	margin-left:10%; 
+	height:10%; 
+	width:35%;
+}

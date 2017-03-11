@@ -1,0 +1,109 @@
+body, html   {
+    background-repeat: repeat-x;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    width:100vw;
+    height:100vh;
+    min-width:1024px;
+    min-height:768px;
+    margin:0 auto;
+    padding: 0;
+    background-color: #444444;
+}
+
+.screen {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.myProgress {
+    display: none;
+}
+
+.ButtonList {
+    float: left; 
+    margin-left: 1%; 
+    height: 97%; 
+    width: 10%; 
+    top: 4%; 
+    position: absolute; 
+    background-color: #e8eded; 
+    border-radius: 15px;
+}
+
+.ButtonListContainer {
+    height:100%; width:94%; margin-left:3%
+}
+
+.ButtonListHeader {
+    text-align:center; 
+    font-weight:bold;
+    font-family: "malgun gothic", simhei;
+}
+
+.ButtonOrder {
+    border-radius: 15px;
+    box-shadow: 0 5px #999; 
+    color:white; 
+    font-size:24px; 
+    font-weight:bold; 
+    text-align:center; 
+    width:100%; 
+    height:7%; 
+    background:#73AD21;
+}
+
+.ButtonContent {
+    margin-top:8%; 
+    background-color:#CCEEFF; 
+    height:75%;
+    width:100%; 
+    overflow:scroll; 
+    overflow-x:hidden;
+}
+
+#map { 
+    width: 60%;
+    height: 84%;
+    left:39%;
+    top: 4%;
+    position: absolute;
+}
+#week-bar {
+    width:100%;
+    height:100%;
+    float:left;
+    position: relative;
+}
+#month-bar {
+    width:100%;
+    height:100%;
+    float:left;
+    position: relative;
+}
+#three-month-bar {
+    width:100%;
+    height:100%;
+    float:left;
+    position: relative;
+}
+#datePicker{
+    margin:7%;
+    float:left;
+    visibility: hidden;
+    position:absolute;
+}
+#myProgress {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #ddd;
+}
+#myBar {
+  position: absolute;
+  width: 10%;
+  height: 100%;
+}
